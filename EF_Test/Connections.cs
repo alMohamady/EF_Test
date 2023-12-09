@@ -12,7 +12,7 @@ namespace EF_Test
                Server=DESKTOP-E0QD2TF\SQL2019;
                Database=dbEfTest;
                User Id=sa;
-               Password=123456;
+               Password=asd@123;
                TrustServerCertificate=True;
             """;
     }
