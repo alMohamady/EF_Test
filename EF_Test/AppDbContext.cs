@@ -17,5 +17,6 @@ namespace EF_Test
 
         public DbSet<Student> Students { get; set; }
         public DbSet<Department> Departments { get; set; }
+        public DbSet<Grade> Grades { get; set; }
     }
 }
