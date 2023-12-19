@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,5 +18,9 @@ namespace EF_Test.Models
         public int Grade { get; set; }
         public DateTime Birthdate { get; set; }
         public Grade grade { get; set; }
+
+        [ForeignKey("department")]
+        public int departmentId { get; set; }
+        public Department department { get; set; }
     }
 }
