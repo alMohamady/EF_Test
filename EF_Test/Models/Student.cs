@@ -22,5 +22,7 @@ namespace EF_Test.Models
         [ForeignKey("department")]
         public int departmentId { get; set; }
         public Department department { get; set; }
+
+        public ICollection<StudentBook> books { get; set; }
     }
 }
