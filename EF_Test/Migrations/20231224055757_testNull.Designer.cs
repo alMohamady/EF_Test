@@ -4,6 +4,7 @@ using EF_Test;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EF_Test.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231224055757_testNull")]
+    partial class testNull
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,7 +46,7 @@ namespace EF_Test.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Books", (string)null);
+                    b.ToTable("Books");
                 });
 
             modelBuilder.Entity("EF_Test.Models.Department", b =>
@@ -63,7 +66,7 @@ namespace EF_Test.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Departments", (string)null);
+                    b.ToTable("Departments");
                 });
 
             modelBuilder.Entity("EF_Test.Models.Grade", b =>
@@ -91,7 +94,7 @@ namespace EF_Test.Migrations
                     b.HasIndex("studentId")
                         .IsUnique();
 
-                    b.ToTable("Grades", (string)null);
+                    b.ToTable("Grades");
                 });
 
             modelBuilder.Entity("EF_Test.Models.Student", b =>
@@ -126,7 +129,7 @@ namespace EF_Test.Migrations
 
                     b.HasIndex("departmentId");
 
-                    b.ToTable("Students", (string)null);
+                    b.ToTable("Students");
                 });
 
             modelBuilder.Entity("EF_Test.Models.StudentBook", b =>
@@ -152,7 +155,7 @@ namespace EF_Test.Migrations
 
                     b.HasIndex("studentId");
 
-                    b.ToTable("StudentBooks", (string)null);
+                    b.ToTable("StudentBooks");
                 });
 
             modelBuilder.Entity("EF_Test.Models.Grade", b =>

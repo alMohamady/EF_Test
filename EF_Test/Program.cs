@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using EF_Test;
 using EF_Test.Models;
+using System.ComponentModel.DataAnnotations;
 
 Console.WriteLine("Hello, World!");
 
@@ -8,27 +9,22 @@ Console.WriteLine("Hello, World!");
 using var db = new AppDbContext();
 
 // Insert
-//var department = new Department()
-//{
-//    Name = "Ahmed"
-//};
-//db.Departments.Add(department);
-
-var department = db.Departments.Find(1);
-
-if (department != null)
+var department = new Department()
 {
-    Console.WriteLine(department.Name);
-
-    //Edit
-    //department.Name = "Class 1";
-    //db.SaveChanges();
-
-    //Delete 
-    db.Departments.Remove(department);
-    db.SaveChanges();
+    Name = "Ahmed 02", 
+    des="1234"
+};
+var context = new ValidationContext(department);
+var errors = new List<ValidationResult>();
+if (!Validator.TryValidateObject(department, context, errors, true))
+{
+    foreach (var validationResult in errors)
+    {
+        Console.WriteLine(validationResult);
+    }
 }
 else
 {
-    Console.WriteLine("nothing");
+    db.Departments.Add(department);
+    db.SaveChanges();
 }
