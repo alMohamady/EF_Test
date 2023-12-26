@@ -43,7 +43,7 @@ namespace EF_Test.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Books");
+                    b.ToTable("Books", (string)null);
                 });
 
             modelBuilder.Entity("EF_Test.Models.Department", b =>
@@ -64,7 +64,7 @@ namespace EF_Test.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Departments");
+                    b.ToTable("Departments", (string)null);
                 });
 
             modelBuilder.Entity("EF_Test.Models.Grade", b =>
@@ -93,7 +93,7 @@ namespace EF_Test.Migrations
                         .IsUnique()
                         .HasFilter("[studentId] IS NOT NULL");
 
-                    b.ToTable("Grades");
+                    b.ToTable("Grades", (string)null);
                 });
 
             modelBuilder.Entity("EF_Test.Models.Student", b =>
@@ -128,7 +128,7 @@ namespace EF_Test.Migrations
 
                     b.HasIndex("departmentId");
 
-                    b.ToTable("Students");
+                    b.ToTable("Students", (string)null);
                 });
 
             modelBuilder.Entity("EF_Test.Models.StudentBook", b =>
@@ -154,7 +154,7 @@ namespace EF_Test.Migrations
 
                     b.HasIndex("studentId");
 
-                    b.ToTable("StudentBooks");
+                    b.ToTable("StudentBooks", (string)null);
                 });
 
             modelBuilder.Entity("EF_Test.Models.Grade", b =>

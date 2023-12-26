@@ -40,6 +40,10 @@ namespace EF_Test
             {
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
             }
+
+            //modelBuilder.Ignore<Attendance>();
+            //modelBuilder.Entity<Attendance>();
+            //modelBuilder.Entity<Attendance>().ToTable("atts", a => a.ExcludeFromMigrations());
         }
     }
 }

@@ -24,5 +24,8 @@ namespace EF_Test.Models
         public Department department { get; set; }
 
         public ICollection<StudentBook> books { get; set; }
+
+        //[NotMapped]
+        //public ICollection<Attendance> attendances { get; set; }
     }
 }
