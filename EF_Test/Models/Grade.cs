@@ -17,7 +17,7 @@ namespace EF_Test.Models
         public decimal programming { get; set; }
 
         [ForeignKey("student")]
-        public int studentId { get; set; }
+        public int? studentId { get; set; }
         public Student student { get; set; }
     }
 }

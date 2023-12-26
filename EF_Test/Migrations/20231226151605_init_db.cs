@@ -40,7 +40,7 @@ namespace EF_Test.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    des = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false)
+                    des = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -56,11 +56,7 @@ namespace EF_Test.Migrations
                     physics = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     chemistry = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     programming = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    studentId = table.Column<int>(
-                        type: "int",
-                        nullable: false,
-                        defaultValue: 1
-                        ),
+                    studentId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -70,7 +66,7 @@ namespace EF_Test.Migrations
                         column: x => x.studentId,
                         principalTable: "Students",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.SetDefault);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -109,7 +105,8 @@ namespace EF_Test.Migrations
                 name: "IX_Grades_studentId",
                 table: "Grades",
                 column: "studentId",
-                unique: true);
+                unique: true,
+                filter: "[studentId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StudentBooks_bookId",

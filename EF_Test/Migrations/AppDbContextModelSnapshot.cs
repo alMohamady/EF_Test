@@ -59,7 +59,6 @@ namespace EF_Test.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("des")
-                        .IsRequired()
                         .HasMaxLength(5)
                         .HasColumnType("nvarchar(5)");
 
@@ -85,13 +84,14 @@ namespace EF_Test.Migrations
                     b.Property<decimal>("programming")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("studentId")
+                    b.Property<int?>("studentId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("studentId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[studentId] IS NOT NULL");
 
                     b.ToTable("Grades");
                 });
@@ -162,8 +162,7 @@ namespace EF_Test.Migrations
                     b.HasOne("EF_Test.Models.Student", "student")
                         .WithOne("grade")
                         .HasForeignKey("EF_Test.Models.Grade", "studentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("student");
                 });
@@ -173,7 +172,7 @@ namespace EF_Test.Migrations
                     b.HasOne("EF_Test.Models.Department", "department")
                         .WithMany("students")
                         .HasForeignKey("departmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("department");
@@ -184,13 +183,13 @@ namespace EF_Test.Migrations
                     b.HasOne("EF_Test.Models.Book", "book")
                         .WithMany("Students")
                         .HasForeignKey("bookId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("EF_Test.Models.Student", "student")
                         .WithMany("books")
                         .HasForeignKey("studentId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("book");

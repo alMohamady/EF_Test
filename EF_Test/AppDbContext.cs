@@ -23,7 +23,23 @@ namespace EF_Test
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Department>().Property(x => x.des).IsRequired();
+            //modelBuilder.Entity<Department>().Property(x => x.des).IsRequired();
+
+            //modelBuilder.Entity<Department>()
+            //    .HasMany(p => p.students)
+            //    .WithOne(c => c.department)
+            //    .OnDelete(DeleteBehavior.Restrict);
+
+            //modelBuilder.Entity<Student>()
+            //        .HasOne(s => s.grade)
+            //        .WithOne(g => g.student)
+            //        .OnDelete(DeleteBehavior.SetNull);
+
+            foreach (var relationship in modelBuilder.Model.GetEntityTypes()
+                .SelectMany(e => e.GetForeignKeys()))
+            {
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+            }
         }
     }
 }
