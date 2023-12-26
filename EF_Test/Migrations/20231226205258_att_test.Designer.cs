@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EF_Test.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231226203408_att_test")]
+    [Migration("20231226205258_att_test")]
     partial class att_test
     {
         /// <inheritdoc />
@@ -35,22 +35,23 @@ namespace EF_Test.Migrations
 
                     b.Property<string>("DayName")
                         .IsRequired()
-                        .HasMaxLength(14)
-                        .HasColumnType("nvarchar(14)")
+                        .HasColumnType("nvarchar(max)")
                         .HasComment("The dadsdsd ");
 
                     b.Property<string>("name")
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("theName");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("studentId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("theData")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
                     b.HasIndex("studentId");
 
-                    b.ToTable("myAtt", "mysc");
+                    b.ToTable("Attendances");
                 });
 
             modelBuilder.Entity("EF_Test.Models.Book", b =>
@@ -193,7 +194,7 @@ namespace EF_Test.Migrations
                     b.HasOne("EF_Test.Models.Student", "student")
                         .WithMany()
                         .HasForeignKey("studentId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("student");
@@ -203,7 +204,8 @@ namespace EF_Test.Migrations
                 {
                     b.HasOne("EF_Test.Models.Student", "student")
                         .WithOne("grade")
-                        .HasForeignKey("EF_Test.Models.Grade", "studentId");
+                        .HasForeignKey("EF_Test.Models.Grade", "studentId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("student");
                 });
@@ -213,7 +215,7 @@ namespace EF_Test.Migrations
                     b.HasOne("EF_Test.Models.Department", "department")
                         .WithMany("students")
                         .HasForeignKey("departmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("department");
@@ -224,13 +226,13 @@ namespace EF_Test.Migrations
                     b.HasOne("EF_Test.Models.Book", "book")
                         .WithMany("Students")
                         .HasForeignKey("bookId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("EF_Test.Models.Student", "student")
                         .WithMany("books")
                         .HasForeignKey("studentId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("book");

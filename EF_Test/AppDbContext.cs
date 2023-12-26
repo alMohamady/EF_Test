@@ -21,19 +21,26 @@ namespace EF_Test
         public DbSet<Book> Books { get; set; }
         public DbSet<StudentBook> StudentBooks { get; set;}
         public DbSet<Attendance> Attendances { get; set; }
+        public DbSet<Invoice> Invoices { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Attendance>().ToTable("myAtt", "mysc");
+            foreach (var relationship in modelBuilder.Model.GetEntityTypes()
+                                  .SelectMany(e => e.GetForeignKeys()))
+            {
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+            }
 
-            modelBuilder.Entity<Attendance>().Property(x => x.DayName)
-                .HasMaxLength(14);
+            modelBuilder.Entity<Invoice>().Property(x => x.qty)
+                        .HasDefaultValue(1);
 
-            modelBuilder.Entity<Attendance>().Property(x => x.name)
-                .HasColumnName("theName")
-                .HasColumnType("varchar(50)");
+            modelBuilder.Entity<Invoice>().Property(x => x.createdDate)
+                        .HasDefaultValueSql("GETDATE()");
 
-            modelBuilder.Entity<Attendance>().Ignore(x => x.theData);
+            modelBuilder.Entity<Invoice>().Property(x => x.fullName)
+                        .HasComputedColumnSql("[customerTitle] + ' ' + [customerName]");
+            modelBuilder.Entity<Invoice>().Property(x => x.total)
+                       .HasComputedColumnSql("[price] * [qty]");
         }
     }
 }
