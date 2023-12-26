@@ -24,27 +24,16 @@ namespace EF_Test
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<Department>().Property(x => x.des).IsRequired();
+            modelBuilder.Entity<Attendance>().ToTable("myAtt", "mysc");
 
-            //modelBuilder.Entity<Department>()
-            //    .HasMany(p => p.students)
-            //    .WithOne(c => c.department)
-            //    .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Attendance>().Property(x => x.DayName)
+                .HasMaxLength(14);
 
-            //modelBuilder.Entity<Student>()
-            //        .HasOne(s => s.grade)
-            //        .WithOne(g => g.student)
-            //        .OnDelete(DeleteBehavior.SetNull);
+            modelBuilder.Entity<Attendance>().Property(x => x.name)
+                .HasColumnName("theName")
+                .HasColumnType("varchar(50)");
 
-            foreach (var relationship in modelBuilder.Model.GetEntityTypes()
-                .SelectMany(e => e.GetForeignKeys()))
-            {
-                relationship.DeleteBehavior = DeleteBehavior.Restrict;
-            }
-
-            //modelBuilder.Ignore<Attendance>();
-            //modelBuilder.Entity<Attendance>();
-            //modelBuilder.Entity<Attendance>().ToTable("atts", a => a.ExcludeFromMigrations());
+            modelBuilder.Entity<Attendance>().Ignore(x => x.theData);
         }
     }
 }
