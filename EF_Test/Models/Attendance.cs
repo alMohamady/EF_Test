@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace EF_Test.Models
 {
+    [Table("StudentsAtts", Schema = "std")]
     public class Attendance
     {
         [Key]
@@ -15,8 +16,14 @@ namespace EF_Test.Models
 
         public string DayName { get; set; }
 
+        [Column("theName", TypeName = "varchar(20)")]
+        public string? name { get; set; }
+
         [ForeignKey("student")]
         public int studentId { get; set; }
+
+        [NotMapped]
+        public DateTime theData { get; set; }
 
         public Student student { get; set; }
     }

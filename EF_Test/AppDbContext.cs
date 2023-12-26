@@ -20,6 +20,7 @@ namespace EF_Test
         public DbSet<Grade> Grades { get; set; }
         public DbSet<Book> Books { get; set; }
         public DbSet<StudentBook> StudentBooks { get; set;}
+        public DbSet<Attendance> Attendances { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
