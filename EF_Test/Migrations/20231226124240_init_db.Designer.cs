@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EF_Test.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231219113532_otoRel")]
-    partial class otoRel
+    [Migration("20231226124240_init_db")]
+    partial class init_db
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,30 @@ namespace EF_Test.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("EF_Test.Models.Book", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Author")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Books");
+                });
 
             modelBuilder.Entity("EF_Test.Models.Department", b =>
                 {
@@ -36,6 +60,11 @@ namespace EF_Test.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("des")
+                        .IsRequired()
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)");
 
                     b.HasKey("Id");
 
@@ -95,9 +124,40 @@ namespace EF_Test.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("departmentId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("departmentId");
+
                     b.ToTable("Students");
+                });
+
+            modelBuilder.Entity("EF_Test.Models.StudentBook", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("bookId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("getDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("studentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("bookId");
+
+                    b.HasIndex("studentId");
+
+                    b.ToTable("StudentBooks");
                 });
 
             modelBuilder.Entity("EF_Test.Models.Grade", b =>
@@ -113,6 +173,48 @@ namespace EF_Test.Migrations
 
             modelBuilder.Entity("EF_Test.Models.Student", b =>
                 {
+                    b.HasOne("EF_Test.Models.Department", "department")
+                        .WithMany("students")
+                        .HasForeignKey("departmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("department");
+                });
+
+            modelBuilder.Entity("EF_Test.Models.StudentBook", b =>
+                {
+                    b.HasOne("EF_Test.Models.Book", "book")
+                        .WithMany("Students")
+                        .HasForeignKey("bookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EF_Test.Models.Student", "student")
+                        .WithMany("books")
+                        .HasForeignKey("studentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("book");
+
+                    b.Navigation("student");
+                });
+
+            modelBuilder.Entity("EF_Test.Models.Book", b =>
+                {
+                    b.Navigation("Students");
+                });
+
+            modelBuilder.Entity("EF_Test.Models.Department", b =>
+                {
+                    b.Navigation("students");
+                });
+
+            modelBuilder.Entity("EF_Test.Models.Student", b =>
+                {
+                    b.Navigation("books");
+
                     b.Navigation("grade")
                         .IsRequired();
                 });

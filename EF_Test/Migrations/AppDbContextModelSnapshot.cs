@@ -43,7 +43,7 @@ namespace EF_Test.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Books", (string)null);
+                    b.ToTable("Books");
                 });
 
             modelBuilder.Entity("EF_Test.Models.Department", b =>
@@ -59,11 +59,13 @@ namespace EF_Test.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("des")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Departments", (string)null);
+                    b.ToTable("Departments");
                 });
 
             modelBuilder.Entity("EF_Test.Models.Grade", b =>
@@ -91,7 +93,7 @@ namespace EF_Test.Migrations
                     b.HasIndex("studentId")
                         .IsUnique();
 
-                    b.ToTable("Grades", (string)null);
+                    b.ToTable("Grades");
                 });
 
             modelBuilder.Entity("EF_Test.Models.Student", b =>
@@ -126,7 +128,7 @@ namespace EF_Test.Migrations
 
                     b.HasIndex("departmentId");
 
-                    b.ToTable("Students", (string)null);
+                    b.ToTable("Students");
                 });
 
             modelBuilder.Entity("EF_Test.Models.StudentBook", b =>
@@ -152,7 +154,7 @@ namespace EF_Test.Migrations
 
                     b.HasIndex("studentId");
 
-                    b.ToTable("StudentBooks", (string)null);
+                    b.ToTable("StudentBooks");
                 });
 
             modelBuilder.Entity("EF_Test.Models.Grade", b =>
