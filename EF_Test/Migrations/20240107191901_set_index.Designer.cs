@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EF_Test.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240107183315_set_index")]
+    [Migration("20240107191901_set_index")]
     partial class set_index
     {
         /// <inheritdoc />
@@ -203,9 +203,10 @@ namespace EF_Test.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Name");
-
                     b.HasIndex("departmentId");
+
+                    b.HasIndex(new[] { "Name" }, "Ix_my_indexer")
+                        .IsUnique();
 
                     b.ToTable("Students");
                 });

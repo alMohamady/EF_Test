@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace EF_Test.Models
 {
-    //[Index("Name")]
+    //[Index("Name", IsUnique = true, Name = "Ix_my_indexer")]
     public class Student
     {
         [Key]

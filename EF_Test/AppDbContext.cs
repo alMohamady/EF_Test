@@ -25,8 +25,10 @@ namespace EF_Test
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Student>().HasIndex(x => x.Name);
-            
+            //modelBuilder.Entity<Student>().HasIndex(x => new { x.Name , x.Email });
+            //modelBuilder.Entity<Student>().HasIndex(x => x.Name).IsUnique()
+            //    .HasDatabaseName("xi_my_index").HasFilter("Name is not null");
+
             foreach (var relationship in modelBuilder.Model.GetEntityTypes()
                                   .SelectMany(e => e.GetForeignKeys()))
             {

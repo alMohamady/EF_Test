@@ -19,16 +19,17 @@ namespace EF_Test.Migrations
                 oldType: "nvarchar(max)");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Students_Name",
+                name: "Ix_my_indexer",
                 table: "Students",
-                column: "Name");
+                column: "Name",
+                unique: true);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropIndex(
-                name: "IX_Students_Name",
+                name: "Ix_my_indexer",
                 table: "Students");
 
             migrationBuilder.AlterColumn<string>(

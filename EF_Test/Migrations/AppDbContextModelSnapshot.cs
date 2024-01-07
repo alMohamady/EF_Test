@@ -200,9 +200,10 @@ namespace EF_Test.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Name");
-
                     b.HasIndex("departmentId");
+
+                    b.HasIndex(new[] { "Name" }, "Ix_my_indexer")
+                        .IsUnique();
 
                     b.ToTable("Students");
                 });
