@@ -25,6 +25,8 @@ namespace EF_Test
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Student>().HasIndex(x => x.Name);
+            
             foreach (var relationship in modelBuilder.Model.GetEntityTypes()
                                   .SelectMany(e => e.GetForeignKeys()))
             {
