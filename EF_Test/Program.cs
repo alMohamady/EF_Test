@@ -1,24 +1,15 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using EF_Test;
 using EF_Test.Models;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
 Console.WriteLine("Hello, World!");
 
 
-using var db = new AppDbContext();
+var db = new AppDbContext();
 
-//var book = new Book() { 
-//   Name = "book 1",
-//   Author = "Author 1",
-//   Created = DateTime.Now,
-//};
+var student = db.Students.SingleOrDefault(x => x.Id == 5 && x.Age > 40);
 
-var uniform = new Uniform()
-{
-    Name = "uniform 1",
-    Created = DateTime.Now,
-};
+Console.WriteLine(student.Name);
 
-db.uniforms.Add(uniform);
-db.SaveChanges();
