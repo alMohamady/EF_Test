@@ -9,7 +9,26 @@ Console.WriteLine("Hello, World!");
 
 var db = new AppDbContext();
 
-var student = db.Students.SingleOrDefault(x => x.Id == 5 && x.Age > 40);
+var departments = new List<Department>() {
+    new Department()
+{
+    Name = "list 1", des = "xyz" ,
+    students = new List<Student>() {
+       new Student() { Name = "S1.1", Email = "S@s.com", Age = 10 , Grade = 10, Birthdate = DateTime.Now },
+       new Student() { Name = "S2.1", Email = "S2@s.com", Age = 11 , Grade = 11, Birthdate = DateTime.Now },
+    }
+},
+        new Department()
+{
+    Name = "list 2", des = "qaz" ,
+    students = new List<Student>() {
+       new Student() { Name = "S1.2", Email = "S@s.com", Age = 10 , Grade = 10, Birthdate = DateTime.Now },
+       new Student() { Name = "S2.2", Email = "S2@s.com", Age = 11 , Grade = 11, Birthdate = DateTime.Now },
+    }
+},
 
-Console.WriteLine(student.Name);
+    };
 
+
+db.Departments.AddRange(departments);
+db.SaveChanges();
