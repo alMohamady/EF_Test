@@ -22,6 +22,9 @@ namespace EF_Test.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.HasSequence<int>("DeliveryOrder")
+                .StartsAt(101L);
+
             modelBuilder.Entity("EF_Test.Models.Attendance", b =>
                 {
                     b.Property<int>("Id")
@@ -65,6 +68,11 @@ namespace EF_Test.Migrations
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("DeliveryOrder")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValueSql("Next Value For DeliveryOrder");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -193,7 +201,7 @@ namespace EF_Test.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("departmentId")
                         .HasColumnType("int");
@@ -201,9 +209,6 @@ namespace EF_Test.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("departmentId");
-
-                    b.HasIndex(new[] { "Name" }, "Ix_my_indexer")
-                        .IsUnique();
 
                     b.ToTable("Students");
                 });
@@ -232,6 +237,31 @@ namespace EF_Test.Migrations
                     b.HasIndex("studentId");
 
                     b.ToTable("StudentBooks");
+                });
+
+            modelBuilder.Entity("EF_Test.Models.Uniform", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DeliveryOrder")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValueSql("Next Value For DeliveryOrder");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("uniforms");
                 });
 
             modelBuilder.Entity("EF_Test.Models.Attendance", b =>

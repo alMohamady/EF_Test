@@ -22,6 +22,7 @@ namespace EF_Test
         public DbSet<StudentBook> StudentBooks { get; set;}
         public DbSet<Attendance> Attendances { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<Uniform> uniforms { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -45,6 +46,16 @@ namespace EF_Test
                         .HasComputedColumnSql("[customerTitle] + ' ' + [customerName]");
             modelBuilder.Entity<Invoice>().Property(x => x.total)
                        .HasComputedColumnSql("[price] * [qty]");
+
+            modelBuilder.HasSequence<int>("DeliveryOrder")
+                .StartsAt(101)
+                .IncrementsBy(1);
+
+            modelBuilder.Entity<Book>().Property(p => p.DeliveryOrder)
+                .HasDefaultValueSql("Next Value For DeliveryOrder");
+
+            modelBuilder.Entity<Uniform>().Property(p => p.DeliveryOrder)
+                 .HasDefaultValueSql("Next Value For DeliveryOrder");
         }
     }
 }

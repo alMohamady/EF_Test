@@ -8,23 +8,17 @@ Console.WriteLine("Hello, World!");
 
 using var db = new AppDbContext();
 
-// Insert
-var department = new Department()
+//var book = new Book() { 
+//   Name = "book 1",
+//   Author = "Author 1",
+//   Created = DateTime.Now,
+//};
+
+var uniform = new Uniform()
 {
-    Name = "Ahmed 02", 
-    des="1234"
+    Name = "uniform 1",
+    Created = DateTime.Now,
 };
-var context = new ValidationContext(department);
-var errors = new List<ValidationResult>();
-if (!Validator.TryValidateObject(department, context, errors, true))
-{
-    foreach (var validationResult in errors)
-    {
-        Console.WriteLine(validationResult);
-    }
-}
-else
-{
-    db.Departments.Add(department);
-    db.SaveChanges();
-}
+
+db.uniforms.Add(uniform);
+db.SaveChanges();
