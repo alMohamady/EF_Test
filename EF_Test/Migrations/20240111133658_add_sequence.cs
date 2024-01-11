@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace EF_Test.Migrations
 {
     /// <inheritdoc />
-    public partial class addsequence : Migration
+    public partial class add_sequence : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

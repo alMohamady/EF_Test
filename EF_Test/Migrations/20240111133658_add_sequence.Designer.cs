@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EF_Test.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240111122300_add-sequence")]
-    partial class addsequence
+    [Migration("20240111133658_add_sequence")]
+    partial class add_sequence
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
