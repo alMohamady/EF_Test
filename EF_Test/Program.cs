@@ -8,33 +8,17 @@ Console.WriteLine("Hello, World!");
 
 
 var db = new AppDbContext();
-//db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
 
-//.AsNoTracking()
-var dep = db.Departments.FirstOrDefault(x => x.Id == 2);
+var stu = db.Students.Include(d => d.department)
+                     .Include(g => g.grade)
+                     .Include(b => b.books)
+                     .ThenInclude(sb => sb.book)
+                     .SingleOrDefault(s => s.Id == 3);
 
-dep.Name = "traking test 3";
+Console.WriteLine(stu.department.Name);
 
-var track = db.ChangeTracker.Entries();
-foreach (var t in track)
+foreach (var book in stu.books)
 {
-    Console.WriteLine($"track 1 {t.Entity.ToString()} -> {t.State}");
-    t.State = EntityState.Detached;
+    Console.WriteLine(book.book.Name);
 }
-
-
-if (track.Any())
-{
-    foreach (var t in track)
-    {
-        Console.WriteLine($"track 2 {t.Entity.ToString()} -> {t.State}");
-    }
-}
-else
-{
-    Console.WriteLine("No tables here");
-}
-
-//db.SaveChanges();
-
 
