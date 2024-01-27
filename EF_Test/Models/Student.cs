@@ -19,13 +19,13 @@ namespace EF_Test.Models
         public int Age { get; set; }
         public int Grade { get; set; }
         public DateTime Birthdate { get; set; }
-        public Grade grade { get; set; }
+        public virtual Grade grade { get; set; }
 
         [ForeignKey("department")]
         public int departmentId { get; set; }
-        public Department department { get; set; }
+        public virtual Department department { get; set; }
 
-        public ICollection<StudentBook> books { get; set; }
+        public virtual ICollection<StudentBook> books { get; set; }
 
         //[NotMapped]
         //public ICollection<Attendance> attendances { get; set; }

@@ -18,6 +18,6 @@ namespace EF_Test.Models
 
         [ForeignKey("student")]
         public int? studentId { get; set; }
-        public Student student { get; set; }
+        public virtual Student student { get; set; }
     }
 }

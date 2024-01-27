@@ -15,7 +15,7 @@ namespace EF_Test.Models
         public string Author { get; set; }
         public DateTime Created { get; set; }
 
-        public ICollection<StudentBook> Students { get; set; }
+        public virtual ICollection<StudentBook> Students { get; set; }
 
         public int DeliveryOrder { get; set; } 
     }

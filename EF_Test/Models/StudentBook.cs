@@ -13,11 +13,11 @@ namespace EF_Test.Models
 
         [ForeignKey("student")]
         public int studentId { get; set; }
-        public Student student { get; set; }
+        public virtual Student student { get; set; }
 
         [ForeignKey("book")]
         public int bookId { get; set; }
-        public Book book { get; set; }
+        public virtual Book book { get; set; }
 
         public DateTime getDate { get; set; }
     }

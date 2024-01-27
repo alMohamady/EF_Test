@@ -18,6 +18,6 @@ namespace EF_Test.Models
         [MaxLength(5,ErrorMessage ="Max len can't be > 5 chrs")]
         public string? des {  get; set; }
 
-        public ICollection<Student> students { get; set; }
+        public virtual ICollection<Student> students { get; set; }
     }
 }

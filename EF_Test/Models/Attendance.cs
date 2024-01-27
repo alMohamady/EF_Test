@@ -27,6 +27,6 @@ namespace EF_Test.Models
         //[NotMapped]
         public DateTime theData { get; set; }
 
-        public Student student { get; set; }
+        public virtual Student student { get; set; }
     }
 }
